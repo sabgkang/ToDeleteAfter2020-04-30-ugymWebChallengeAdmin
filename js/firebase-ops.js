@@ -28,14 +28,14 @@ firebase.auth().onAuthStateChanged(function (user) {
     $("#logToggle").text("登入");
     isLogin = false;
     $("#memberMangementBtn").attr("disabled", true);
-    $("#addCouponBtn").attr("disabled", true);
+    $("#addChallengeBtn").attr("disabled", true);
     
     //以下三行不知為何沒作用
 //    $("#couponDueBtn").attr("disabled", true);    
 //    $("#couponDetailBtn").attr("disabled", true);        
 //    $("#couponDeleteBtn").attr("disabled", true); 
     
-//    var aaa = $('#couponTable').DataTable();
+//    var aaa = $('#challengeTable').DataTable();
 //    console.log(aaa);
 //    aaa.buttons.disable();    
     
@@ -46,7 +46,7 @@ firebase.auth().onAuthStateChanged(function (user) {
     $("#logToggle").text("登出");
     isLogin = true;
     $("#memberMangementBtn").attr("disabled", false);
-    $("#addCouponBtn").attr("disabled", false);
+    $("#addChallengeBtn").attr("disabled", false);
     
     //以下三行不知為何沒作用    
 //    $("#couponDueBtn").attr("disabled", false);    
@@ -62,12 +62,12 @@ function readFromDB() {
 
   var toRead = 4;
   var readTimes = 0;
-  firebase.database().ref('users/林口運動中心/優惠券').once('value').then(function (snapshot) {
+  firebase.database().ref('users/林口運動中心/挑戰賽').once('value').then(function (snapshot) {
     console.log("data read done");
     readTimes++;
     var result = snapshot.val();
-    couponData = JSON.parse(result.現在優惠券);
-    couponHistory = JSON.parse(result.過去優惠券);
+    couponData = JSON.parse(result.現在挑戰賽);
+    couponHistory = JSON.parse(result.過去挑戰賽);
 
     if (couponData.length>0) {
       var tmp1 = couponData[couponData.length - 1][0];
@@ -97,12 +97,12 @@ function readFromDB() {
     if (readTimes == toRead) $.loading.end();
   });
 
-  firebase.database().ref('users/林口運動中心/優惠券管理').once('value').then(function (snapshot) {
+  firebase.database().ref('users/林口運動中心/挑戰賽管理').once('value').then(function (snapshot) {
     console.log("coupon read done");
     readTimes++;
     var result = snapshot.val();
     console.log()
-    couponMember = JSON.parse(result.優惠券會員);
+    couponMember = JSON.parse(result.挑戰賽會員);
 
     if (readTimes == toRead) $.loading.end();
   });

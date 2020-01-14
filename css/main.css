@@ -32,19 +32,19 @@ h2 {
   text-align: center;
 }
 
-#couponTable{
+#challengeTable{
   font-family:'Noto Sans TC';
 }
 
-#couponTable_info, #couponTable_filter, #couponTable_paginate{
+#challengeTable_info, #challengeTable_filter, #challengeTable_paginate{
   font-family:'Noto Sans TC';
 }
 
-#couponHistoryTable{
+#challengeHistoryTable{
   font-family:'Noto Sans TC';
 }
 
-#couponHistoryTable_info, #couponHistoryTable_filter, #couponHistoryTable_paginate {
+#challengeHistoryTable_info, #challengeHistoryTable_filter, #challengeHistoryTable_paginate {
   font-family:'Noto Sans TC';
 }
 
@@ -123,7 +123,7 @@ h2 {
   font-family:'Noto Sans TC';
 }
 
-.couponLabelDetail {
+.challengeLabelDetail {
   font-weight: bold;
   height: 20px;
   float: left; width: 80px; padding-top: 5px;
@@ -132,7 +132,7 @@ h2 {
   font-family:'Noto Sans TC';
 }
 
-#couponNumber {
+# {
   margin-left: 20px;
 }
 

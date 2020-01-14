@@ -1,30 +1,30 @@
-function addCoupon() {
+function addChallenge() {
   console.log("addCoupon");
 
   if (!isLogin) {
-    alert("必須登入後才能新增優惠券");
+    alert("必須登入後才能新增挑戰賽");
     return 0;
   }
 
   //couponNum++;
-  $("#couponNumber").text("新增優惠券 - C" + zeroFill(couponNum+1, 4));
+  $("#addNewChallengeHeader").text("新增挑戰賽 - T" + zeroFill(couponNum+1, 4));
 
-  $("#couponTable").hide();
-  $("#couponHistoryTable").hide();
+  $("#challengeTable").hide();
+  $("#challengeHistoryTable").hide();
   $("#spacerBetweenTables").hide();
 
   $(".dataTables_filter").hide();
   $(".dataTables_info").hide();
-  $('#couponTable_paginate').hide();
-  $('#couponHistoryTable_paginate').hide();
+  $('#challengeTable_paginate').hide();
+  $('#challengeHistoryTable_paginate').hide();
 
-  $("#addCoupon").show();
+  $("#addChallengeDiv").show();
 
 
   $("#inProgress").hide();
-  $("#addCouponBtn").hide();
+  $("#addChallengeBtn").hide();
   $("#refreshBtn").hide();
-  //      $("#addCouponBtn").attr("disabled", true);
+  //      $("#addChallengeBtn").attr("disabled", true);
   //      $("#refreshBtn").attr("disabled", true);
 }
 
@@ -32,7 +32,7 @@ function couponConfirm() {
   console.log("couponConfirm");
 
   if (!isLogin) {
-    alert("必須登入後才能新增優惠券");
+    alert("必須登入後才能新增挑戰賽");
     return 0;
   }
 
@@ -68,15 +68,15 @@ function couponConfirm() {
     
     // 更新 local couponData 及 couponMember
     couponData.push(dataToAdd);
-    couponMember.push(["C" + zeroFill(couponNum, 4)]); //Fix bug:重複週期 新增優惠券 會只有增加最後一個優惠券 到 couponMember
+    couponMember.push(["C" + zeroFill(couponNum, 4)]); //Fix bug:重複週期 新增挑戰賽 會只有增加最後一個挑戰賽 到 couponMember
   }
   
 
 
-  // 優惠券寫入資料庫
-  database.ref('users/林口運動中心/優惠券').set({
-    現在優惠券: JSON.stringify(couponData),
-    過去優惠券: JSON.stringify(couponHistory),
+  // 挑戰賽寫入資料庫
+  database.ref('users/林口運動中心/挑戰賽').set({
+    現在挑戰賽: JSON.stringify(couponData),
+    過去挑戰賽: JSON.stringify(couponHistory),
   }, function (error) {
     if (error) {
       console.log("Write to database error, revert couponData back");
@@ -86,8 +86,8 @@ function couponConfirm() {
   });
 
 
-  database.ref('users/林口運動中心/優惠券管理').set({
-    優惠券會員: JSON.stringify(couponMember),
+  database.ref('users/林口運動中心/挑戰賽管理').set({
+    挑戰賽會員: JSON.stringify(couponMember),
   }, function (error) {
     if (error) {
       //console.log(error);
@@ -96,46 +96,46 @@ function couponConfirm() {
     console.log('Write to database successful');
   });
 
-  // 更新優惠券表格
-  var couponTable = $('#couponTable').DataTable();
-  couponTable.clear().draw();
-  couponTable.rows.add(couponData);
-  couponTable.draw();
+  // 更新挑戰賽表格
+  var challengeTable = $('#challengeTable').DataTable();
+  challengeTable.clear().draw();
+  challengeTable.rows.add(couponData);
+  challengeTable.draw();
 
-  $("#addCoupon").hide();
-  $("#couponTable").show();
+  $("#addChallengeDiv").hide();
+  $("#challengeTable").show();
   $("#spacerBetweenTables").show();
-  $("#couponHistoryTable").show();
+  $("#challengeHistoryTable").show();
 
   $(".dataTables_filter").show();
   $(".dataTables_info").show();
-  $('#couponTable_paginate').show();
-  $('#couponHistoryTable_paginate').show();
+  $('#challengeTable_paginate').show();
+  $('#challengeHistoryTable_paginate').show();
 
   $("#inProgress").show();
-  $("#addCouponBtn").show();
+  $("#addChallengeBtn").show();
   $("#refreshBtn").show();
-  //      $("#addCouponBtn").attr("disabled", false);
+  //      $("#addChallengeBtn").attr("disabled", false);
   //      $("#refreshBtn").attr("disabled", false);      
 }
 
 function couponCancel() {
   console.log("couponCancel");
   //couponNum--;
-  $("#addCoupon").hide();
+  $("#addChallengeDiv").hide();
   $("#spacerBetweenTables").show();
-  $("#couponHistoryTable").show();
-  $("#couponTable").show();
+  $("#challengeHistoryTable").show();
+  $("#challengeTable").show();
 
   $(".dataTables_filter").show();
   $(".dataTables_info").show();
-  $('#couponTable_paginate').show();
-  $('#couponHistoryTable_paginate').show();
+  $('#challengeTable_paginate').show();
+  $('#challengeHistoryTable_paginate').show();
 
   $("#inProgress").show();
-  $("#addCouponBtn").show();
+  $("#addChallengeBtn").show();
   $("#refreshBtn").show();
-  //      $("#addCouponBtn").attr("disabled", false);
+  //      $("#addChallengeBtn").attr("disabled", false);
   //      $("#refreshBtn").attr("disabled", false);       
 }
 
@@ -150,15 +150,15 @@ function zeroFill(number, width) {
 function refreshCourse() {
   console.log("Refresh Course");
 
-  var couponTable = $('#couponTable').DataTable();
-  couponTable.clear().draw();
-  couponTable.rows.add(couponData);
-  couponTable.draw();
+  var challengeTable = $("#challengeTable").DataTable();
+  challengeTable.clear().draw();
+  challengeTable.rows.add(couponData);
+  challengeTable.draw();
 
-  var couponTable = $('#couponHistoryTable').DataTable();
-  couponTable.clear().draw();
-  couponTable.rows.add(couponHistory);
-  couponTable.draw();
+  var challengeHistoryTable = $('#challengeHistoryTable').DataTable();
+  challengeHistoryTable.clear().draw();
+  challengeHistoryTable.rows.add(couponHistory);
+  challengeHistoryTable.draw();
 }
 
 function backToHome() {
@@ -166,17 +166,17 @@ function backToHome() {
 
   $("#couponDetailDiv").hide();
 
-  $("#couponTable").show();
-  $("#couponHistoryTable").show();
+  $("#challengeTable").show();
+  $("#challengeHistoryTable").show();
   $("#spacerBetweenTables").show();
 
   $(".dataTables_filter").show();
   $(".dataTables_info").show();
-  $('#couponTable_paginate').show();
-  $('#couponHistoryTable_paginate').show();
-  $("#addCoupon").hide();
+  $('#challengeTable_paginate').show();
+  $('#challengeHistoryTable_paginate').show();
+  $("#addChallengeDiv").hide();
   $("#inProgress").show();
-  $("#addCouponBtn").show();
+  $("#addChallengeBtn").show();
   $("#refreshBtn").show();
 }
 
@@ -184,12 +184,12 @@ function couponUpdate() {
   console.log("couponUpdate");
 
   if (!isLogin) {
-    alert("必須登入後才能更新優惠券");
+    alert("必須登入後才能更新挑戰賽");
     return 0;
   }
 
   var securityNum = Math.floor(Math.random()*8999+1000); 
-  var securityStr = "確定要更新此優惠券，請輸入確認碼: " + String(securityNum);
+  var securityStr = "確定要更新此挑戰賽，請輸入確認碼: " + String(securityNum);
   //console.log(prompt(securityStr));
   var confirmIt = prompt(securityStr) == securityNum;
   console.log("確認碼:", confirmIt);  
@@ -216,10 +216,10 @@ function couponUpdate() {
       }
     }
         
-    // 優惠券寫入資料庫
-    database.ref('users/林口運動中心/優惠券').set({
-      現在優惠券: JSON.stringify(couponData),
-      過去優惠券: JSON.stringify(couponHistory),
+    // 挑戰賽寫入資料庫
+    database.ref('users/林口運動中心/挑戰賽').set({
+      現在挑戰賽: JSON.stringify(couponData),
+      過去挑戰賽: JSON.stringify(couponHistory),
     }, function (error) {
       if (error) {
         console.log("Write to database error, revert couponData back");
@@ -228,24 +228,24 @@ function couponUpdate() {
       console.log('Write to database successful');
     });
 
-    // 更新優惠券表格
-    var couponTable = $('#couponTable').DataTable();
-    couponTable.clear().draw();
-    couponTable.rows.add(couponData);
-    couponTable.draw();
+    // 更新挑戰賽表格
+    var challengeTable = $('#challengeTable').DataTable();
+    challengeTable.clear().draw();
+    challengeTable.rows.add(couponData);
+    challengeTable.draw();
 
     $("#couponDetailDiv").hide();
-    $("#couponTable").show();
+    $("#challengeTable").show();
     $("#spacerBetweenTables").show();
-    $("#couponHistoryTable").show();
+    $("#challengeHistoryTable").show();
 
     $(".dataTables_filter").show();
     $(".dataTables_info").show();
-    $('#couponTable_paginate').show();
-    $('#couponHistoryTable_paginate').show();
+    $('#challengeTable_paginate').show();
+    $('#challengeHistoryTable_paginate').show();
 
     $("#inProgress").show();
-    $("#addCouponBtn").show();
+    $("#addChallengeBtn").show();
     $("#refreshBtn").show();    
 
   }
@@ -303,7 +303,7 @@ function logInAndOut() {
 //  coachs.rows.add(coachSet);
 //  coachs.draw();
 //
-//  $("#addCoupon").hide();
+//  $("#addChallengeDiv").hide();
 //  $("#coachTable").show();
 //  $("#coachList_paginate").css({
 //    "font-size": "16px"

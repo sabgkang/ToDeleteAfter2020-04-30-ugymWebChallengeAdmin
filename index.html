@@ -48,56 +48,55 @@
     <button class="btn-blue" id="logToggle" onclick="logInAndOut()" style="float: right; margin-right: 10px; margin-left: 0px"><i class="fa fa-sign-in"></i>&nbsp 登入</button>
     <button id="loginStatus" class="btn-blue" style="float: right; background-color: white; color: gray">請登入來寫入資料庫</button>
 
-    <h1 id="titleHeader">林口運動中心 - 優惠券管理</h1>
+    <h1 id="titleHeader">林口運動中心 - 挑戰賽管理</h1>
   </div>
   <hr>
   <!--  **** 標頭:結束 ****-->
   
-  <!--  **** 進行中優惠券的畫面 **** ?? 應該可以包成一個大 DIV，方便 hide() 和 show()?? -->
-  <h2 id="inProgress">優惠券</h2>
-  <button class="btn-blue" id="addCouponBtn" onclick="addCoupon()"><i class="fa fa-plus"></i>&nbsp 新增優惠券</button>
+  <!--  **** 進行中挑戰賽的畫面 **** ?? 應該可以包成一個大 DIV，方便 hide() 和 show()?? -->
+  <h2 id="inProgress">挑戰賽</h2>
+  <button class="btn-blue" id="addChallengeBtn" onclick="addChallenge()"><i class="fa fa-plus"></i>&nbsp 新增挑戰賽</button>
 
-  <button class="btn-red" id="refreshBtn" onclick="readFromDB()" style="margin-left: 20px"><i class="fa fa-refresh"></i>&nbsp 刷新優惠券</button>
+  <button class="btn-red" id="refreshBtn" onclick="readFromDB()" style="margin-left: 20px"><i class="fa fa-refresh"></i>&nbsp 刷新挑戰賽</button>
 
-  <table id="couponTable" class="display">
+  <table id="challengeTable" class="display">
     <thead>
       <tr id="table-header">
-        <th style="width: 100px">優惠券編號</th>
-        <th>優惠券內容</th>
-        <th style="width: 120px">有效期限</th>
+        <th style="width: 100px">挑戰賽編號</th>
+        <th>挑戰賽內容</th>
+        <th style="width: 200px">有效期限</th>
 
         <th style="width: 150px">操作</th>
 
       </tr>
     </thead>
   </table>
-  <!--  **** 進行中優惠券的畫面:結束 **** -->
+  <!--  **** 進行中挑戰賽的畫面:結束 **** -->
   
-  <!--  **** 優惠券歷史的畫面 **** ?? 應該可以包成一個大 DIV，方便 hide() 和 show()?? -->  
+  <!--  **** 挑戰賽歷史的畫面 **** ?? 應該可以包成一個大 DIV，方便 hide() 和 show()?? -->  
   <div id="spacerBetweenTables" style="height: 100px; text-align: ">
     <div style="height: 50px"></div>
     <hr>
-    <h2>優惠券歷史紀錄</h2>
+    <h2>挑戰賽歷史紀錄</h2>
   </div>
 
-  <table id="couponHistoryTable" class="display" style="width:100%;">
+  <table id="challengeHistoryTable" class="display" style="width:100%;">
     <thead>
       <tr id="table-header">
-        <th style="width: 100px">優惠券編號</th>
-        <th>優惠券內容</th>
-        <th style="width: 120px">有效期限</th>
+        <th style="width: 100px">挑戰賽編號</th>
+        <th>挑戰賽內容</th>
+        <th style="width: 200px">有效期限</th>
         <th style="width: 150px"></th>
       </tr>
     </thead>
   </table>
-  <!--  **** 優惠券歷史的畫面:結束 **** -->
+  <!--  **** 挑戰賽歷史的畫面:結束 **** -->
 
-  <!--  **** 新增優惠券的畫面，包成一個大 DIV，方便 hide() 和 show() **** -->
-  <div id="addCoupon" style="height: 600px; font-family:'Noto Sans TC'">
-    <h2 id="couponNumber" value="00">新增優惠券 - C0000</h2>
-<!--    <button class="btn-blue" onclick="addNewCoach()" style="margin-bottom: 0">查詢/新增 老師</button>-->
+  <!--  **** 新增挑戰賽的畫面，包成一個大 DIV，方便 hide() 和 show() **** -->
+  <div id="addChallengeDiv" style="height: 600px; font-family:'Noto Sans TC'">
+    <h2 id="addNewChallengeHeader" value="00">新增挑戰賽 - C0000</h2>
     <div style="font-size: 20px;">
-      <div class="couponLabel">優惠券內容</div> <input id="couponName" class="couponInput" type="text" placeholder="請輸入優惠券內容"><br>     
+      <div class="couponLabel">挑戰賽內容</div> <input id="couponName" class="couponInput" type="text" placeholder="請輸入挑戰賽內容"><br>     
       <div class="couponLabel">有效期限</div> 
       <span>
         <input id="couponDate" class="couponInput" type="date" > 
@@ -114,24 +113,24 @@
       <br>
     </div>       
   </div>
-  <!--  **** 新增優惠券的畫面:結束 **** -->
+  <!--  **** 新增挑戰賽的畫面:結束 **** -->
   
 
-  <!--  **** 優惠券細節的畫面，可以更新優惠券資料，使用及確認 **** -->
+  <!--  **** 挑戰賽細節的畫面，可以更新挑戰賽資料，使用及確認 **** -->
   <div id="couponDetailDiv" style="height: 600px; font-family:'Noto Sans TC'">
-    <button class="btn-blue" onclick="backToHome()" style="float: left"><i class="fa fa-arrow-left"></i>&nbsp 回到 優惠券管理</button>
-    <h2 id="couponNumberDetail" style="margin-left: 200px" value="00">優惠券頁面</h2>
+    <button class="btn-blue" onclick="backToHome()" style="float: left"><i class="fa fa-arrow-left"></i>&nbsp 回到 挑戰賽管理</button>
+    <h2 id="challengeDetailHeader" style="margin-left: 200px" value="00">挑戰賽頁面</h2>
     <div ><br>
-      <div class="couponLabelDetail">優惠券內容</div> <input id="couponDetail" class="couponInputDetail" type="text" placeholder="請輸入優惠券內容"><br>
+      <div class="challengeLabelDetail">挑戰賽內容</div> <input id="couponDetail" class="couponInputDetail" type="text" placeholder="請輸入挑戰賽內容"><br>
 
-      <div class="couponLabelDetail">有效期限</div> <input id="couponDateDetail" class="couponInputDetail" type="text" placeholder="請輸入有效期限"><br>
+      <div class="challengeLabelDetail">有效期限</div> <input id="couponDateDetail" class="couponInputDetail" type="text" placeholder="請輸入有效期限"><br>
 
-      <div class="couponLabelDetail">其他說明</div> <input id="couponOtherDescDetail" class="couponInputDetail" type="text"><br>
+      <div class="challengeLabelDetail">其他說明</div> <input id="couponOtherDescDetail" class="couponInputDetail" type="text"><br>
 
       <br>
 
-      <button class="btn-blue" onclick="backToHome()"><i class="fa fa-arrow-left"></i>&nbsp 回到 優惠券管理</button>
-      <button class="btn-red" onclick="couponUpdate()">更新 優惠券資料</button>
+      <button class="btn-blue" onclick="backToHome()"><i class="fa fa-arrow-left"></i>&nbsp 回到 挑戰賽管理</button>
+      <button class="btn-red" onclick="couponUpdate()">更新 挑戰賽資料</button>
       <br>
      <hr>
       <table id="couponMemberTable" class="display" style="width:100%;font-family:'Noto Sans TC'">
@@ -146,7 +145,7 @@
       </table>
     </div> 
   </div>    
-  <!--  **** 優惠券細節的畫面:結束 **** -->
+  <!--  **** 挑戰賽細節的畫面:結束 **** -->
   
   <!--  **** 以上 HTML 畫面設計結束，但 datatables 必須靠 js/main-page.js 來完成。以下是 Javascript codes **** -->
      
@@ -187,14 +186,13 @@
     //      ["謝東憲", "Jacky", "09XXXXXXXX", "A1XXXXXXXX", "台北市總統府", "YES", "NO"],
     //    ];
     //
-    //    [ID, Name, Coach, date/time, Calories, Max.Persons, Assist, Fee, OtherDesc]
 //        var couponData = [
-//          ["C0002", "Inbody 100 元優惠券", "2020-02-28", "原價 350元"],
-//          ["C0003", "乳清蛋白 100 元優惠券", "2020-02-28", "原價 400元"],
+//          ["C0002", "Inbody 100 元挑戰賽", "2020-02-28", "原價 350元"],
+//          ["C0003", "乳清蛋白 100 元挑戰賽", "2020-02-28", "原價 400元"],
 //        ];
 //    
 //        var couponHistory = [
-//          ["C0001", "Inbody 100 元優惠券", "2020-01-01", "原價 350元"],
+//          ["C0001", "Inbody 100 元挑戰賽", "2020-01-01", "原價 350元"],
 //        ];    
     //    var coachSet = [
     //      ["Jack", "男", "高大帥"],
@@ -227,7 +225,7 @@
     var inaddCoupon = false;
     var version = " V0.1";
 
-    $("#titleHeader").text("林口運動中心 - 優惠券管理"+version);
+    $("#titleHeader").text("林口運動中心 - 挑戰賽管理"+version);
 
 
     $(document).ready(function() {
@@ -274,12 +272,12 @@
       function myFunctionR() {
         console.log("Read Database");
 
-        var aaa = firebase.database().ref('users/林口運動中心/優惠券/').once('value').then(function(snapshot) {
+        var aaa = firebase.database().ref('users/林口運動中心/挑戰賽/').once('value').then(function(snapshot) {
           console.log("done");
           var bbb = snapshot.val();
           console.log(bbb);
-          console.log(JSON.parse(bbb.現在優惠券));
-          couponData = JSON.parse(bbb.現在優惠券);
+          console.log(JSON.parse(bbb.現在挑戰賽));
+          couponData = JSON.parse(bbb.現在挑戰賽);
         });
 
       }
@@ -293,15 +291,29 @@
           alert("Please login first!");
           return 0;
         }
-         
+
+        var couponData = [
+          ["T0002", "三個月跑步機路程挑戰賽", "2020-01-01~2020-03-31", "原價 350元"],
+          ["T0003", "三個月跑步機路程挑戰賽", "2020-04-01~2020-06-30", "原價 400元"],
+        ];
+    
+        var couponHistory = [
+          ["T0001", "三個月跑步機路程挑戰賽", "2019-10-01~2019-23-31", "原價 350元"],
+        ];        
+        
+        database.ref('users/林口運動中心/挑戰賽').set({
+          現在挑戰賽: JSON.stringify(couponData),
+          過去挑戰賽: JSON.stringify(couponHistory),          
+        });
+        
         var couponMember =[
-          ["C0001", ["小白", "已使用", "已確認"], ["小華", "已使用", "已確認"]],   
-          ["C0002", ["小白", "已使用", "已確認"], ["小華", "已使用", "已確認"]],  
-          ["C0003", ["小白", "已使用", "未確認"], ["小華", "已使用", "未確認"]],            
+          ["T0001", ["小白", "已使用", "已確認"], ["小華", "已使用", "已確認"]],   
+          ["T0002", ["小白", "已使用", "已確認"], ["小華", "已使用", "已確認"]],  
+          ["T0003", ["小白", "已使用", "未確認"], ["小華", "已使用", "未確認"]],            
         ];          
         
-        database.ref('users/林口運動中心/優惠券管理').set({
-          優惠券會員: JSON.stringify(couponMember),
+        database.ref('users/林口運動中心/挑戰賽管理').set({
+          挑戰賽會員: JSON.stringify(couponMember),
         });
 
 
@@ -324,8 +336,8 @@
       function cccFunction() {
         console.log("ccc");
 
-        $("#couponTable").hide();
-        $("#addCoupon").show();
+        $("#challengeTable").hide();
+        $("#addChallengeDiv").show();
       }
     </script>
 

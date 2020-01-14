@@ -77,9 +77,9 @@
   </div>
   <!--  ==================== 新增客戶 (HTML)=============================-->
 
-  <!--  ==================== 客戶已使用優惠券 (HTML)========================-->
+  <!--  ==================== 客戶已使用挑戰賽 (HTML)========================-->
   <div id="myCouponDiv">
-    <h1 id="客戶已使用優惠券">已使用優惠券</h1>
+    <h1 id="客戶已使用挑戰賽">已使用挑戰賽</h1>
     <hr>
     <div id="myCoupons">
       <button class="btn-blue" id="useCouponBtn" onclick="closeMyCoupons()">返回</button>
@@ -87,8 +87,8 @@
       <table id="usedCouponsTable" class="display" style="font-family: 'Noto Sans TC';width: 100%">
         <thead>
           <tr id="table-header">
-            <th style="width: 120px">優惠券編號</th>
-            <th>優惠券內容</th>
+            <th style="width: 120px">挑戰賽編號</th>
+            <th>挑戰賽內容</th>
             <th style="width: 120px">使用期限</th>
             <th style="width: 50px">操作</th>
           </tr>
@@ -99,8 +99,8 @@
       <table id="myCouponsHistory" class="display" style="font-family: 'Noto Sans TC';width: 100% ">
         <thead>
           <tr id="table-header">
-            <th style="width: 120px">歷史優惠券</th>
-            <th>優惠券名稱</th>
+            <th style="width: 120px">歷史挑戰賽</th>
+            <th>挑戰賽名稱</th>
 
             <th style="width: 120px">使用期限</th>
 
@@ -111,12 +111,12 @@
 
     </div>
   </div>
-  <!--  ==================== 客戶已使用優惠券 (HTML)========================-->
+  <!--  ==================== 客戶已使用挑戰賽 (HTML)========================-->
 
 
-  <!--  ==================== 可使用優惠券 (HTML)=============================-->
+  <!--  ==================== 可使用挑戰賽 (HTML)=============================-->
   <div id="couponDiv">
-    <h1 id="可使用優惠券">可用優惠券編號</h1>
+    <h1 id="可使用挑戰賽">可用挑戰賽編號</h1>
     <hr>
     <div id="coupons">
       <button class="btn-blue" id="returnBtn" onclick="returnFromCoupons()">返回</button>
@@ -124,8 +124,8 @@
       <table id="notUsedCouponTable" class="display" style="font-family: 'Noto Sans TC';width: 100%">
         <thead>
           <tr id="table-header">
-            <th style="width: 120px">可用優惠券</th>
-            <th>優惠券內容</th>
+            <th style="width: 120px">可用挑戰賽</th>
+            <th>挑戰賽內容</th>
             <th style="width: 120px">使用期限</th>
 
             <th style="width: 50px">操作</th>
@@ -134,7 +134,7 @@
       </table>
     </div>
   </div>
-  <!--  ==================== 可使用優惠券 (HTML)=============================-->
+  <!--  ==================== 可使用挑戰賽 (HTML)=============================-->
 
 
   <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
@@ -204,12 +204,12 @@
     var readTimes = 0;
     var toRead = 3;
 
-    firebase.database().ref('users/林口運動中心/優惠券').once('value').then(function(snapshot) {
+    firebase.database().ref('users/林口運動中心/挑戰賽').once('value').then(function(snapshot) {
       console.log("data read done");
       readTimes++;
       var result = snapshot.val();
-      couponData = JSON.parse(result.現在優惠券);
-      couponHistory = JSON.parse(result.過去優惠券);
+      couponData = JSON.parse(result.現在挑戰賽);
+      couponHistory = JSON.parse(result.過去挑戰賽);
       buildCouponsTable();
       if (readTimes == toRead) {
         $.loading.end();
@@ -217,11 +217,11 @@
     });
 
     $.loading.start('Loading data');
-    firebase.database().ref('users/林口運動中心/優惠券管理').once('value').then(function(snapshot) {
+    firebase.database().ref('users/林口運動中心/挑戰賽管理').once('value').then(function(snapshot) {
       console.log("class read done");
       readTimes++;
       var result = snapshot.val();
-      couponMember = JSON.parse(result.優惠券會員);
+      couponMember = JSON.parse(result.挑戰賽會員);
       if (readTimes == toRead) $.loading.end();
     });
 
@@ -292,8 +292,8 @@
           {
             //title: "操作",
             data: null,
-            defaultContent: "<button class = 'checkUsedCoupons to-edit' style='width: 100px'>已使用優惠券</button> " +
-              "<button class = 'checkNewCoupons to-edit' style='width: 100px'>使用優惠券</button> " +
+            defaultContent: "<button class = 'checkUsedCoupons to-edit' style='width: 100px'>已使用挑戰賽</button> " +
+              "<button class = 'checkNewCoupons to-edit' style='width: 100px'>使用挑戰賽</button> " +
               "<button class = 'memberDeleteBtn to-delete'>刪除</button>"
           }
         ]
@@ -317,7 +317,7 @@
         // 取消課程用
         userForCancelCourse = data[0];
 
-        $("#客戶已使用優惠券").text(data[0] + " - 已使用優惠券");
+        $("#客戶已使用挑戰賽").text(data[0] + " - 已使用挑戰賽");
 
         var myCouponsNumbers = [];
         couponMember.forEach(function(item, index, array) {
@@ -401,7 +401,7 @@
         userName = data[0];
         userForAddingCoupon = data[0]; // simple patch
         
-        // 尋找未使用的優惠券
+        // 尋找未使用的挑戰賽
         var myCouponsNumbers = [];
         couponMember.forEach(function(item, index, array) {
           //console.log(item[1][0]);
@@ -433,7 +433,7 @@
         table.rows.add(notInCoupons);
         table.draw();
         
-        $("#可使用優惠券").text(userName + " - 可使用優惠券");
+        $("#可使用挑戰賽").text(userName + " - 可使用挑戰賽");
        // console.log(userName);
 
         $("#memberDiv").hide();
@@ -496,11 +496,11 @@
         pageLength: 10,
         lengthChange: false,
         deferRender: true,
-        columns: [{ //title: 可用優惠券編號
+        columns: [{ //title: 可用挑戰賽編號
             className: "centerCell"
           },
           {
-            //title: 優惠券內容
+            //title: 挑戰賽內容
           },
           {
             //title: "使用期限"
@@ -557,8 +557,8 @@
 //        });
         
         //更新 couponMember to 資料庫                   
-//          database.ref('users/林口運動中心/優惠券管理').set({
-//            優惠券會員: JSON.stringify(couponMember),
+//          database.ref('users/林口運動中心/挑戰賽管理').set({
+//            挑戰賽會員: JSON.stringify(couponMember),
 //          }, function(error){
 //                if (error) {
 //                  //console.log(error);
@@ -611,8 +611,8 @@
         if(alreadyInUse) {
           console.log("aaa");
           closeMyCoupons();
-          database.ref('users/林口運動中心/優惠券管理').set({
-            優惠券會員: JSON.stringify(couponMember),
+          database.ref('users/林口運動中心/挑戰賽管理').set({
+            挑戰賽會員: JSON.stringify(couponMember),
           }, function(error){
                 if (error) {
                   //console.log(error);
@@ -636,11 +636,11 @@
         pageLength: 10,
         lengthChange: false,
         deferRender: true,
-        columns: [{ //title: 歷史優惠券
+        columns: [{ //title: 歷史挑戰賽
             className: "centerCell"
           },
           {
-            //title: 優惠券名稱
+            //title: 挑戰賽名稱
           },
 
           {
@@ -671,11 +671,11 @@
         pageLength: 10,
         lengthChange: false,
         deferRender: true,
-        columns: [{ //title: 可用優惠券編號
+        columns: [{ //title: 可用挑戰賽編號
             className: "centerCell"
           },
           {
-            //title: 優惠券內容
+            //title: 挑戰賽內容
           },
 
           {
@@ -739,8 +739,8 @@
         
 
         // Write couponMember to database
-        database.ref('users/林口運動中心/優惠券管理').set({
-          優惠券會員: JSON.stringify(couponMember),
+        database.ref('users/林口運動中心/挑戰賽管理').set({
+          挑戰賽會員: JSON.stringify(couponMember),
         }, function(error){
               if (error) {
                 //console.log(error);
