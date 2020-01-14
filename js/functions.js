@@ -6,88 +6,90 @@ function addChallenge() {
     return 0;
   }
 
-  //couponNum++;
-  $("#addNewChallengeHeader").text("新增挑戰賽 - T" + zeroFill(couponNum+1, 4));
+  //挑戰賽最新編號++;
+  $("#新增挑戰賽標題").text("新增挑戰賽 - T" + zeroFill(挑戰賽最新編號+1, 4));
 
-  $("#challengeTable").hide();
-  $("#challengeHistoryTable").hide();
+  $("#挑戰賽表格").hide();
+  $("#挑戰賽歷史表格").hide();
   $("#spacerBetweenTables").hide();
 
   $(".dataTables_filter").hide();
   $(".dataTables_info").hide();
-  $('#challengeTable_paginate').hide();
-  $('#challengeHistoryTable_paginate').hide();
+  $('#挑戰賽表格_paginate').hide();
+  $('#挑戰賽歷史表格_paginate').hide();
 
-  $("#addChallengeDiv").show();
+  $("#新增挑戰賽畫面").show();
 
 
-  $("#inProgress").hide();
+  $("#挑戰賽標題").hide();
   $("#addChallengeBtn").hide();
   $("#refreshBtn").hide();
   //      $("#addChallengeBtn").attr("disabled", true);
   //      $("#refreshBtn").attr("disabled", true);
 }
 
-function couponConfirm() {
-  console.log("couponConfirm");
+function 確認新增挑戰賽() {
+  console.log("確認新增挑戰賽");
 
   if (!isLogin) {
     alert("必須登入後才能新增挑戰賽");
     return 0;
   }
 
-  var startDate = new Date($("#couponDate").val());
-  var nextDate = new Date();
+  //var startDate = new Date($("#挑戰賽起始時間").val());
+  //var nextDate = new Date();
   //console.log(startDate);
-  nextDate.setDate(startDate.getDate() - 7);
-  var repeatTimes=$("#repeatN").val();
+  //nextDate.setDate(startDate.getDate() - 7);
+  //var repeatTimes=$("#重複次數").val();
+  var repeatTimes=1;
   for (var i=0; i<repeatTimes; i++){
-    couponNum++;
-    nextDate.setDate(nextDate.getDate() + 7);
-    nextDateStr = nextDate.toLocaleDateString();
-    nextDateStr = nextDateStr.replace(/\//g, "-");
-    //console.log(couponNum, nextDateStr);
+    挑戰賽最新編號++;
+    //nextDate.setDate(nextDate.getDate() + 7);
+    //nextDateStr = nextDate.toLocaleDateString();
+    //nextDateStr = nextDateStr.replace(/\//g, "-");
+    //console.log(挑戰賽最新編號, nextDateStr);
     
-    if(nextDate == "Invalid Date") {
-      alert("有效期限日期錯誤");
-      return 0;
-    }
+    //if(nextDate == "Invalid Date") {
+    //  alert("有效期限日期錯誤");
+    //  return 0;
+    //}
     
     var couponNameTmp;
-    couponNameTmp = (repeatTimes>1)? $("#couponName").val()+" ("+(i+1)+")":$("#couponName").val();
+    couponNameTmp = (repeatTimes>1)? $("#新增挑戰賽內容").val()+" ("+(i+1)+")":$("#新增挑戰賽內容").val();
     
     var dataToAdd = [
-              "C" + zeroFill(couponNum, 4),
+              "T" + zeroFill(挑戰賽最新編號, 4),
               couponNameTmp,
-              //$("#couponName").val(),
-              nextDateStr,
-              $("#couponOtherDesc").val()
+              //$("#新增挑戰賽內容").val(),
+              //nextDateStr,
+              ($("#挑戰賽起始時間").val()+" ~ "+$("#挑戰賽結束時間").val()),
+              $("#新增挑戰賽其他說明").val()
             ];
 
     console.log(dataToAdd);
     
-    // 更新 local couponData 及 couponMember
-    couponData.push(dataToAdd);
-    couponMember.push(["C" + zeroFill(couponNum, 4)]); //Fix bug:重複週期 新增挑戰賽 會只有增加最後一個挑戰賽 到 couponMember
+    // 更新 local 挑戰賽資料 及 挑戰賽會員
+    挑戰賽資料.push(dataToAdd);
+    挑戰賽會員.push(["T" + zeroFill(挑戰賽最新編號, 4)]); //Fix bug:重複週期 新增挑戰賽 會只有增加最後一個挑戰賽 到 挑戰賽會員
   }
   
 
 
   // 挑戰賽寫入資料庫
   database.ref('users/林口運動中心/挑戰賽').set({
-    現在挑戰賽: JSON.stringify(couponData),
-    過去挑戰賽: JSON.stringify(couponHistory),
+    現在挑戰賽: JSON.stringify(挑戰賽資料),
+    過去挑戰賽: JSON.stringify(挑戰賽歷史資料),
   }, function (error) {
     if (error) {
-      console.log("Write to database error, revert couponData back");
-      couponData.pop();
+      console.log("Write to database error, revert 挑戰賽資料 back");
+      挑戰賽資料.pop();
     }
     console.log('Write to database successful');
   });
 
 
   database.ref('users/林口運動中心/挑戰賽管理').set({
-    挑戰賽會員: JSON.stringify(couponMember),
+    挑戰賽會員: JSON.stringify(挑戰賽會員),
   }, function (error) {
     if (error) {
       //console.log(error);
@@ -97,42 +99,42 @@ function couponConfirm() {
   });
 
   // 更新挑戰賽表格
-  var challengeTable = $('#challengeTable').DataTable();
-  challengeTable.clear().draw();
-  challengeTable.rows.add(couponData);
-  challengeTable.draw();
+  var 挑戰賽表格 = $('#挑戰賽表格').DataTable();
+  挑戰賽表格.clear().draw();
+  挑戰賽表格.rows.add(挑戰賽資料);
+  挑戰賽表格.draw();
 
-  $("#addChallengeDiv").hide();
-  $("#challengeTable").show();
+  $("#新增挑戰賽畫面").hide();
+  $("#挑戰賽表格").show();
   $("#spacerBetweenTables").show();
-  $("#challengeHistoryTable").show();
+  $("#挑戰賽歷史表格").show();
 
   $(".dataTables_filter").show();
   $(".dataTables_info").show();
-  $('#challengeTable_paginate').show();
-  $('#challengeHistoryTable_paginate').show();
+  $('#挑戰賽表格_paginate').show();
+  $('#挑戰賽歷史表格_paginate').show();
 
-  $("#inProgress").show();
+  $("#挑戰賽標題").show();
   $("#addChallengeBtn").show();
   $("#refreshBtn").show();
   //      $("#addChallengeBtn").attr("disabled", false);
   //      $("#refreshBtn").attr("disabled", false);      
 }
 
-function couponCancel() {
-  console.log("couponCancel");
-  //couponNum--;
-  $("#addChallengeDiv").hide();
+function 取消新增挑戰賽() {
+  console.log("取消新增挑戰賽");
+  //挑戰賽最新編號--;
+  $("#新增挑戰賽畫面").hide();
   $("#spacerBetweenTables").show();
-  $("#challengeHistoryTable").show();
-  $("#challengeTable").show();
+  $("#挑戰賽歷史表格").show();
+  $("#挑戰賽表格").show();
 
   $(".dataTables_filter").show();
   $(".dataTables_info").show();
-  $('#challengeTable_paginate').show();
-  $('#challengeHistoryTable_paginate').show();
+  $('#挑戰賽表格_paginate').show();
+  $('#挑戰賽歷史表格_paginate').show();
 
-  $("#inProgress").show();
+  $("#挑戰賽標題").show();
   $("#addChallengeBtn").show();
   $("#refreshBtn").show();
   //      $("#addChallengeBtn").attr("disabled", false);
@@ -150,38 +152,38 @@ function zeroFill(number, width) {
 function refreshCourse() {
   console.log("Refresh Course");
 
-  var challengeTable = $("#challengeTable").DataTable();
-  challengeTable.clear().draw();
-  challengeTable.rows.add(couponData);
-  challengeTable.draw();
+  var 挑戰賽表格 = $("#挑戰賽表格").DataTable();
+  挑戰賽表格.clear().draw();
+  挑戰賽表格.rows.add(挑戰賽資料);
+  挑戰賽表格.draw();
 
-  var challengeHistoryTable = $('#challengeHistoryTable').DataTable();
-  challengeHistoryTable.clear().draw();
-  challengeHistoryTable.rows.add(couponHistory);
-  challengeHistoryTable.draw();
+  var 挑戰賽歷史表格 = $('#挑戰賽歷史表格').DataTable();
+  挑戰賽歷史表格.clear().draw();
+  挑戰賽歷史表格.rows.add(挑戰賽歷史資料);
+  挑戰賽歷史表格.draw();
 }
 
-function backToHome() {
+function  回挑戰賽管理() {
   console.log("Refresh Course");
 
-  $("#couponDetailDiv").hide();
+  $("#挑戰賽細節畫面").hide();
 
-  $("#challengeTable").show();
-  $("#challengeHistoryTable").show();
+  $("#挑戰賽表格").show();
+  $("#挑戰賽歷史表格").show();
   $("#spacerBetweenTables").show();
 
   $(".dataTables_filter").show();
   $(".dataTables_info").show();
-  $('#challengeTable_paginate').show();
-  $('#challengeHistoryTable_paginate').show();
-  $("#addChallengeDiv").hide();
-  $("#inProgress").show();
+  $('#挑戰賽表格_paginate').show();
+  $('#挑戰賽歷史表格_paginate').show();
+  $("#新增挑戰賽畫面").hide();
+  $("#挑戰賽標題").show();
   $("#addChallengeBtn").show();
   $("#refreshBtn").show();
 }
 
-function couponUpdate() {
-  console.log("couponUpdate");
+function 更新挑戰賽資料() {
+  console.log("更新挑戰賽資料");
 
   if (!isLogin) {
     alert("必須登入後才能更新挑戰賽");
@@ -199,52 +201,52 @@ function couponUpdate() {
     return 0;
   } else {
     var dataToReplace = [
-      couponNumber,
-      $("#couponDetail").val(),
-      $("#couponDateDetail").val(),
-      $("#couponOtherDescDetail").val(),
+      挑戰賽編號,
+      $("#挑戰賽細節內容").val(),
+      $("#挑戰賽細節有效期限").val(),
+      $("#挑戰賽細節其他說明").val(),
     ];
 
     //console.log(dataToReplace);
     
-    // 尋找 couponData 這筆資料，並取代
-    for (var i =0; i< couponData.length; i++){
-      //console.log(couponData[i][0]);
-      if (couponData[i][0]==couponNumber) {
-        couponData[i] = dataToReplace;
+    // 尋找 挑戰賽資料 這筆資料，並取代
+    for (var i =0; i< 挑戰賽資料.length; i++){
+      //console.log(挑戰賽資料[i][0]);
+      if (挑戰賽資料[i][0]==挑戰賽編號) {
+        挑戰賽資料[i] = dataToReplace;
         break;
       }
     }
         
     // 挑戰賽寫入資料庫
     database.ref('users/林口運動中心/挑戰賽').set({
-      現在挑戰賽: JSON.stringify(couponData),
-      過去挑戰賽: JSON.stringify(couponHistory),
+      現在挑戰賽: JSON.stringify(挑戰賽資料),
+      過去挑戰賽: JSON.stringify(挑戰賽歷史資料),
     }, function (error) {
       if (error) {
-        console.log("Write to database error, revert couponData back");
-        couponData.pop();
+        console.log("Write to database error, revert 挑戰賽資料 back");
+        挑戰賽資料.pop();
       }
       console.log('Write to database successful');
     });
 
     // 更新挑戰賽表格
-    var challengeTable = $('#challengeTable').DataTable();
-    challengeTable.clear().draw();
-    challengeTable.rows.add(couponData);
-    challengeTable.draw();
+    var 挑戰賽表格 = $('#挑戰賽表格').DataTable();
+    挑戰賽表格.clear().draw();
+    挑戰賽表格.rows.add(挑戰賽資料);
+    挑戰賽表格.draw();
 
-    $("#couponDetailDiv").hide();
-    $("#challengeTable").show();
+    $("#挑戰賽細節畫面").hide();
+    $("#挑戰賽表格").show();
     $("#spacerBetweenTables").show();
-    $("#challengeHistoryTable").show();
+    $("#挑戰賽歷史表格").show();
 
     $(".dataTables_filter").show();
     $(".dataTables_info").show();
-    $('#challengeTable_paginate').show();
-    $('#challengeHistoryTable_paginate').show();
+    $('#挑戰賽表格_paginate').show();
+    $('#挑戰賽歷史表格_paginate').show();
 
-    $("#inProgress").show();
+    $("#挑戰賽標題").show();
     $("#addChallengeBtn").show();
     $("#refreshBtn").show();    
 
@@ -303,7 +305,7 @@ function logInAndOut() {
 //  coachs.rows.add(coachSet);
 //  coachs.draw();
 //
-//  $("#addChallengeDiv").hide();
+//  $("#新增挑戰賽畫面").hide();
 //  $("#coachTable").show();
 //  $("#coachList_paginate").css({
 //    "font-size": "16px"
@@ -326,7 +328,7 @@ function memberManage() {
   //  $("#memberDiv").show();
   //  var memberTable = $('#memberTable').DataTable();
   //  memberTable.clear().draw();
-  //  memberTable.rows.add(memberData);
+  //  memberTable.rows.add(會員資料);
   //  memberTable.draw();
 }
 
@@ -369,22 +371,22 @@ function addMemberInfo() {
 
   //console.log(dataToAdd);
 
-  // memberData 取回 完整的 LINE Id
-  memberData.forEach(function(member, index, array){
+  // 會員資料 取回 完整的 LINE Id
+  會員資料.forEach(function(member, index, array){
     member[1]=memberLineId[index];
   });
   
-  // 更新 local couponData
-  memberData.push(dataToAdd);
+  // 更新 local 挑戰賽資料
+  會員資料.push(dataToAdd);
 
 
   // 客戶寫入資料庫
   database.ref('users/林口運動中心/客戶管理').set({
-    會員資料: JSON.stringify(memberData),
+    會員資料: JSON.stringify(會員資料),
   }, function (error) {
     if (error) {
       console.log("Write to database error");
-      couponData.pop();
+      挑戰賽資料.pop();
     }
     console.log('Write to database successful');
   });
@@ -393,7 +395,7 @@ function addMemberInfo() {
   // 更新客戶表格  
   //  var memberTable = $('#memberTable').DataTable();
   //  memberTable.clear().draw();
-  //  memberTable.rows.add(memberData);
+  //  memberTable.rows.add(會員資料);
   //  memberTable.draw();  
   //  
   //  $("#addMemberInfo").hide();

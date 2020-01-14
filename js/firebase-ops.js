@@ -35,7 +35,7 @@ firebase.auth().onAuthStateChanged(function (user) {
 //    $("#couponDetailBtn").attr("disabled", true);        
 //    $("#couponDeleteBtn").attr("disabled", true); 
     
-//    var aaa = $('#challengeTable').DataTable();
+//    var aaa = $('#挑戰賽表格').DataTable();
 //    console.log(aaa);
 //    aaa.buttons.disable();    
     
@@ -60,28 +60,28 @@ function readFromDB() {
 
   $.loading.start('Loading data');
 
-  var toRead = 4;
+  var toRead = 3;
   var readTimes = 0;
   firebase.database().ref('users/林口運動中心/挑戰賽').once('value').then(function (snapshot) {
     console.log("data read done");
     readTimes++;
     var result = snapshot.val();
-    couponData = JSON.parse(result.現在挑戰賽);
-    couponHistory = JSON.parse(result.過去挑戰賽);
+    挑戰賽資料 = JSON.parse(result.現在挑戰賽);
+    挑戰賽歷史資料 = JSON.parse(result.過去挑戰賽);
 
-    if (couponData.length>0) {
-      var tmp1 = couponData[couponData.length - 1][0];
+    if (挑戰賽資料.length>0) {
+      var tmp1 = 挑戰賽資料[挑戰賽資料.length - 1][0];
       var tmp2 = parseInt(tmp1.substr(1, 4));
     } else tmp2 = 0;
 
-    if (couponHistory.length>0) {    
-      var tmp3 = couponHistory[couponHistory.length - 1][0];
+    if (挑戰賽歷史資料.length>0) {    
+      var tmp3 = 挑戰賽歷史資料[挑戰賽歷史資料.length - 1][0];
       var tmp4 = parseInt(tmp3.substr(1, 4));  
     } else tmp4 = 0;
  
-    couponNum = (tmp4 > tmp2)? tmp4:tmp2;
+    挑戰賽最新編號 = (tmp4 > tmp2)? tmp4:tmp2;
     
-    //console.log(couponNum);
+    //console.log(挑戰賽最新編號);
 
     refreshCourse();
 
@@ -92,7 +92,7 @@ function readFromDB() {
     console.log("member read done");
     readTimes++;
     var result = snapshot.val();
-    memberData = JSON.parse(result.會員資料);
+    會員資料 = JSON.parse(result.會員資料);
 
     if (readTimes == toRead) $.loading.end();
   });
@@ -102,26 +102,26 @@ function readFromDB() {
     readTimes++;
     var result = snapshot.val();
     console.log()
-    couponMember = JSON.parse(result.挑戰賽會員);
+    挑戰賽會員 = JSON.parse(result.挑戰賽會員);
 
     if (readTimes == toRead) $.loading.end();
   });
   
-  firebase.database().ref('users/林口運動中心/教練管理').once('value').then(function (snapshot) {
-    console.log("Coach read done");
-    readTimes++;
-    var result = snapshot.val();
-    coachSet = JSON.parse(result.老師資料);
-
-    if (readTimes == toRead) $.loading.end();
-  });  
+//  firebase.database().ref('users/林口運動中心/教練管理').once('value').then(function (snapshot) {
+//    console.log("Coach read done");
+//    readTimes++;
+//    var result = snapshot.val();
+//    coachSet = JSON.parse(result.老師資料);
+//
+//    if (readTimes == toRead) $.loading.end();
+//  });  
   
-  //couponMemberSet = [ ["姓名", "aaa", "bbb"] ];
+  //挑戰賽會員對應 = [ ["姓名", "aaa", "bbb"] ];
 
 }
 
 function readMemberfromDB() {
-  console.log("Read memberData Database");  
+  console.log("Read 會員資料 Database");  
   
   var toRead = 1;
   var readTimes = 0;  
@@ -131,14 +131,14 @@ function readMemberfromDB() {
     console.log("member read done");
     readTimes++;
     var result = snapshot.val();
-    memberData = JSON.parse(result.會員資料);
+    會員資料 = JSON.parse(result.會員資料);
 
     if (readTimes == toRead) $.loading.end();
     
     // 更新客戶表格
 //    var memberTable = $('#memberTable').DataTable();
 //    memberTable.clear().draw();
-//    memberTable.rows.add(memberData);
+//    memberTable.rows.add(會員資料);
 //    memberTable.draw();
     
     

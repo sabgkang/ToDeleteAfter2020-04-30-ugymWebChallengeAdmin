@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>uGym Coupon</title>
+  <title>uGym 挑戰賽</title>
 
   <link rel="stylesheet" href="css/main.css">
 
@@ -53,13 +53,13 @@
   <hr>
   <!--  **** 標頭:結束 ****-->
   
-  <!--  **** 進行中挑戰賽的畫面 **** ?? 應該可以包成一個大 DIV，方便 hide() 和 show()?? -->
-  <h2 id="inProgress">挑戰賽</h2>
+  <!--  **** 進行中挑戰賽的畫面 **** 應該可以包成一個大 DIV，方便 hide() 和 show() -->
+  <h2 id="挑戰賽標題">挑戰賽</h2>
   <button class="btn-blue" id="addChallengeBtn" onclick="addChallenge()"><i class="fa fa-plus"></i>&nbsp 新增挑戰賽</button>
 
   <button class="btn-red" id="refreshBtn" onclick="readFromDB()" style="margin-left: 20px"><i class="fa fa-refresh"></i>&nbsp 刷新挑戰賽</button>
 
-  <table id="challengeTable" class="display">
+  <table id="挑戰賽表格" class="display">
     <thead>
       <tr id="table-header">
         <th style="width: 100px">挑戰賽編號</th>
@@ -73,14 +73,14 @@
   </table>
   <!--  **** 進行中挑戰賽的畫面:結束 **** -->
   
-  <!--  **** 挑戰賽歷史的畫面 **** ?? 應該可以包成一個大 DIV，方便 hide() 和 show()?? -->  
+  <!--  **** 挑戰賽歷史的畫面 **** 應該可以包成一個大 DIV，方便 hide() 和 show() -->  
   <div id="spacerBetweenTables" style="height: 100px; text-align: ">
     <div style="height: 50px"></div>
     <hr>
     <h2>挑戰賽歷史紀錄</h2>
   </div>
 
-  <table id="challengeHistoryTable" class="display" style="width:100%;">
+  <table id="挑戰賽歷史表格" class="display" style="width:100%;">
     <thead>
       <tr id="table-header">
         <th style="width: 100px">挑戰賽編號</th>
@@ -93,23 +93,22 @@
   <!--  **** 挑戰賽歷史的畫面:結束 **** -->
 
   <!--  **** 新增挑戰賽的畫面，包成一個大 DIV，方便 hide() 和 show() **** -->
-  <div id="addChallengeDiv" style="height: 600px; font-family:'Noto Sans TC'">
-    <h2 id="addNewChallengeHeader" value="00">新增挑戰賽 - C0000</h2>
+  <div id="新增挑戰賽畫面" style="height: 600px; font-family:'Noto Sans TC'">
+    <h2 id="新增挑戰賽標題" value="00">新增挑戰賽 - T0000</h2>
     <div style="font-size: 20px;">
-      <div class="couponLabel">挑戰賽內容</div> <input id="couponName" class="couponInput" type="text" placeholder="請輸入挑戰賽內容"><br>     
-      <div class="couponLabel">有效期限</div> 
-      <span>
-        <input id="couponDate" class="couponInput" type="date" > 
-      </span>
-      <br>   
-      <div class="couponLabel">其他說明</div> <input id="couponOtherDesc" class="couponInput" type="text" placeholder="請輸入其他說明"><br>
+      <div class="挑戰賽標籤">挑戰賽內容</div> <input id="新增挑戰賽內容" class="挑戰賽輸入" type="text" placeholder="請輸入挑戰賽內容"><br>     
+      <div class="挑戰賽標籤">開始時間</div>   <input id="挑戰賽起始時間" class="挑戰賽輸入" type="date" ><br>   
+      <div class="挑戰賽標籤">結束時間</div>   <input id="挑戰賽結束時間" class="挑戰賽輸入" type="date" ><br>      
+      <div class="挑戰賽標籤">其他說明</div> <input id="新增挑戰賽其他說明" class="挑戰賽輸入" type="text" placeholder="請輸入其他說明"><br>
 
       <br>
-      <button class="btn-blue" onclick="couponConfirm()">確定</button>
-      <button class="btn-red" onclick="couponCancel()">取消</button>
+      <button class="btn-blue" onclick="確認新增挑戰賽()">確定</button>
+      <button class="btn-red" onclick="取消新增挑戰賽()">取消</button>
+<!--
       <span style="margin-left: 150px">重複</span>
-      <input id="repeatN" class="couponInput" style="width: 50px; text-align: right; padding-right: 10px;" type="text" value="1" placeholder="重複幾週">
-      週(張)
+      <input id="重複次數" class="挑戰賽輸入" style="width: 50px; text-align: right; padding-right: 10px;" type="text" value="1" placeholder="重複幾次">
+      次(張)
+-->
       <br>
     </div>       
   </div>
@@ -117,28 +116,28 @@
   
 
   <!--  **** 挑戰賽細節的畫面，可以更新挑戰賽資料，使用及確認 **** -->
-  <div id="couponDetailDiv" style="height: 600px; font-family:'Noto Sans TC'">
-    <button class="btn-blue" onclick="backToHome()" style="float: left"><i class="fa fa-arrow-left"></i>&nbsp 回到 挑戰賽管理</button>
-    <h2 id="challengeDetailHeader" style="margin-left: 200px" value="00">挑戰賽頁面</h2>
+  <div id="挑戰賽細節畫面" style="height: 600px; font-family:'Noto Sans TC'">
+    <button class="btn-blue" onclick=" 回挑戰賽管理()" style="float: left"><i class="fa fa-arrow-left"></i>&nbsp 回到 挑戰賽管理</button>
+    <h2 id="挑戰賽頁面標題" style="margin-left: 200px" value="00">挑戰賽頁面</h2>
     <div ><br>
-      <div class="challengeLabelDetail">挑戰賽內容</div> <input id="couponDetail" class="couponInputDetail" type="text" placeholder="請輸入挑戰賽內容"><br>
+      <div class="挑戰賽細節標籤">挑戰賽內容</div> <input id="挑戰賽細節內容" class="挑戰賽細節輸入" type="text" placeholder="請輸入挑戰賽內容"><br>
 
-      <div class="challengeLabelDetail">有效期限</div> <input id="couponDateDetail" class="couponInputDetail" type="text" placeholder="請輸入有效期限"><br>
+      <div class="挑戰賽細節標籤">有效期限</div> <input id="挑戰賽細節有效期限" class="挑戰賽細節輸入" type="text" placeholder="請輸入有效期限"><br>
 
-      <div class="challengeLabelDetail">其他說明</div> <input id="couponOtherDescDetail" class="couponInputDetail" type="text"><br>
+      <div class="挑戰賽細節標籤">其他說明</div> <input id="挑戰賽細節其他說明" class="挑戰賽細節輸入" type="text"><br>
 
       <br>
 
-      <button class="btn-blue" onclick="backToHome()"><i class="fa fa-arrow-left"></i>&nbsp 回到 挑戰賽管理</button>
-      <button class="btn-red" onclick="couponUpdate()">更新 挑戰賽資料</button>
+      <button class="btn-blue" onclick=" 回挑戰賽管理()"><i class="fa fa-arrow-left"></i>&nbsp 回到 挑戰賽管理</button>
+      <button class="btn-red" onclick="更新挑戰賽資料()">更新 挑戰賽資料</button>
       <br>
      <hr>
-      <table id="couponMemberTable" class="display" style="width:100%;font-family:'Noto Sans TC'">
+      <table id="挑戰賽會員表格" class="display" style="width:100%;font-family:'Noto Sans TC'">
         <thead>
           <tr id="table-header">
             <th>客戶姓名</th>
-            <th>使用</th>
-            <th>確認</th>
+            <th>報名</th>
+            <th>繳費</th>
             <th style="width:  200px;">操作</th>
           </tr>
         </thead>
@@ -170,44 +169,47 @@
 
   <script>
     //   資料格式
-    //    var memberData = [
-    //      ["謝小憲", "Jacky",   "男", "1966-01-01", "09XXXXXXXX", "A1XXXXXXXX", "台北市"],
-    //      ["許小琦", "Chantal", "女", "1966-02-02", "09XXXXXXXX", "A1XXXXXXXX", "竹北市"],   
-    //      ["盧小宏", "Tony",    "男", "1966-03-03", "09XXXXXXXX", "A1XXXXXXXX", "新竹市"],   
+    //    var 會員資料 = [
+    //      ["謝小憲", "U1234..ABCD", "男", "1966-01-01", "09XXXXXXXX", "A1XXXXXXXX", "台北市"],
+    //      ["許小琦", "U2345..BCDE", "女", "1966-02-02", "09XXXXXXXX", "A1XXXXXXXX", "竹北市"],   
+    //      ["盧小宏", "U3456..CDEF", "男", "1966-03-03", "09XXXXXXXX", "A1XXXXXXXX", "新竹市"],   
     //    ];
     //
-    //    var couponMember =[
+    //    var 挑戰賽會員 =[
     //      ["U0001", ["謝小憲", "已繳費", "已簽到"], ["許小琦", "未繳費", "未簽到"]],
     //      ["U0002", ["許小琦", "已繳費", "未簽到"], ["謝小憲", "已繳費", "未簽到"]],   
     //      ["U0003", ["盧小宏", "未繳費", "未簽到"], ["謝小憲", "已繳費", "未簽到"]],           
     //    ];
     //
-    //    var couponMemberSet = [
+    //    var 挑戰賽會員對應 = [
     //      ["謝東憲", "Jacky", "09XXXXXXXX", "A1XXXXXXXX", "台北市總統府", "YES", "NO"],
     //    ];
     //
-//        var couponData = [
-//          ["C0002", "Inbody 100 元挑戰賽", "2020-02-28", "原價 350元"],
-//          ["C0003", "乳清蛋白 100 元挑戰賽", "2020-02-28", "原價 400元"],
-//        ];
-//    
-//        var couponHistory = [
-//          ["C0001", "Inbody 100 元挑戰賽", "2020-01-01", "原價 350元"],
-//        ];    
+    //    var 挑戰賽資料 = [
+    //      ["C0002", "Inbody 100 元挑戰賽", "2020-02-28", "原價 350元"],
+    //      ["C0003", "乳清蛋白 100 元挑戰賽", "2020-02-28", "原價 400元"],
+    //    ];
+    //
+    //    var 挑戰賽歷史資料 = [
+    //      ["C0001", "Inbody 100 元挑戰賽", "2020-01-01", "原價 350元"],
+    //    ];    
     //    var coachSet = [
     //      ["Jack", "男", "高大帥"],
     //      ["Chantal", "女", "愛跑馬拉松"],
     //    ];  
     
     // 全域變數，偷懶用，容易產生麻煩的 bugs
-    var couponData = [];
-    var couponHistory = [];
-    var couponMemberSet = [];
-    var coachSet = [];
-    var memberData = [];
-    var couponNumber;
+    var 挑戰賽資料 = [];
+    var 挑戰賽歷史資料 = [];
+    var 挑戰賽會員=[];
+    var 挑戰賽會員對應 = [];
+    //var coachSet = [];
+    var 會員資料 = [];
+    var 挑戰賽編號;        // 忘了 與挑戰賽最新編號 的差異
+    var 挑戰賽最新編號 = 0; // Update from Database
+    var 版本 = " V0.1";    
 
-    // 從 Firebase 資料庫取得 couponData, couponHistory, memberData, couponMember, coachSet, 
+    // 從 Firebase 資料庫取得 挑戰賽資料, 挑戰賽歷史資料, 會員資料, 挑戰賽會員, coachSet, 
     // 定義在 js/firebase-ops.js 中
     readFromDB();
 
@@ -221,11 +223,7 @@
 
   <!--  **** MAIN ***-->
   <script type="text/javascript">
-    var couponNum = 0; // Update from Database
-    var inaddCoupon = false;
-    var version = " V0.1";
-
-    $("#titleHeader").text("林口運動中心 - 挑戰賽管理"+version);
+    $("#titleHeader").text("林口運動中心 - 挑戰賽管理"+版本);
 
 
     $(document).ready(function() {
@@ -277,7 +275,7 @@
           var bbb = snapshot.val();
           console.log(bbb);
           console.log(JSON.parse(bbb.現在挑戰賽));
-          couponData = JSON.parse(bbb.現在挑戰賽);
+          挑戰賽資料 = JSON.parse(bbb.現在挑戰賽);
         });
 
       }
@@ -292,28 +290,28 @@
           return 0;
         }
 
-        var couponData = [
-          ["T0002", "三個月跑步機路程挑戰賽", "2020-01-01~2020-03-31", "原價 350元"],
-          ["T0003", "三個月跑步機路程挑戰賽", "2020-04-01~2020-06-30", "原價 400元"],
+        var 挑戰賽資料 = [
+          ["T0002", "三個月跑步機路程挑戰賽", "2020-01-01 ~ 2020-03-31", "原價 350元"],
+          ["T0003", "三個月跑步機路程挑戰賽", "2020-04-01 ~ 2020-06-30", "原價 400元"],
         ];
     
-        var couponHistory = [
-          ["T0001", "三個月跑步機路程挑戰賽", "2019-10-01~2019-23-31", "原價 350元"],
+        var 挑戰賽歷史資料 = [
+          ["T0001", "三個月跑步機路程挑戰賽", "2019-10-01 ~ 2019-23-31", "原價 350元"],
         ];        
         
         database.ref('users/林口運動中心/挑戰賽').set({
-          現在挑戰賽: JSON.stringify(couponData),
-          過去挑戰賽: JSON.stringify(couponHistory),          
+          現在挑戰賽: JSON.stringify(挑戰賽資料),
+          過去挑戰賽: JSON.stringify(挑戰賽歷史資料),          
         });
         
-        var couponMember =[
-          ["T0001", ["小白", "已使用", "已確認"], ["小華", "已使用", "已確認"]],   
-          ["T0002", ["小白", "已使用", "已確認"], ["小華", "已使用", "已確認"]],  
-          ["T0003", ["小白", "已使用", "未確認"], ["小華", "已使用", "未確認"]],            
+        var 挑戰賽會員 =[
+          ["T0001", ["小白", "已報名", "已繳費"], ["小華", "已報名", "已繳費"]],   
+          ["T0002", ["小白", "已報名", "已繳費"], ["小華", "已報名", "已繳費"]],  
+          ["T0003", ["小白", "已報名", "未繳費"], ["小華", "已報名", "未繳費"]],            
         ];          
         
         database.ref('users/林口運動中心/挑戰賽管理').set({
-          挑戰賽會員: JSON.stringify(couponMember),
+          挑戰賽會員: JSON.stringify(挑戰賽會員),
         });
 
 
@@ -336,8 +334,8 @@
       function cccFunction() {
         console.log("ccc");
 
-        $("#challengeTable").hide();
-        $("#addChallengeDiv").show();
+        $("#挑戰賽表格").hide();
+        $("#新增挑戰賽畫面").show();
       }
     </script>
 

@@ -32,24 +32,24 @@ h2 {
   text-align: center;
 }
 
-#challengeTable{
+#挑戰賽表格{
   font-family:'Noto Sans TC';
 }
 
-#challengeTable_info, #challengeTable_filter, #challengeTable_paginate{
+#挑戰賽表格_info, #挑戰賽表格_filter, #挑戰賽表格_paginate{
   font-family:'Noto Sans TC';
 }
 
-#challengeHistoryTable{
+#挑戰賽歷史表格{
   font-family:'Noto Sans TC';
 }
 
-#challengeHistoryTable_info, #challengeHistoryTable_filter, #challengeHistoryTable_paginate {
+#挑戰賽歷史表格_info, #挑戰賽歷史表格_filter, #挑戰賽歷史表格_paginate {
   font-family:'Noto Sans TC';
 }
 
 /*
-#couponMemberTable{
+#挑戰賽會員表格{
   font-size: 16px;
   font-family:'Noto Sans TC';
 }
@@ -98,7 +98,7 @@ h2 {
   color: white;
 }
 
-.couponInput{
+.挑戰賽輸入{
   height: 30px;
   width: 400px;
   font-size: 20px;
@@ -107,7 +107,7 @@ h2 {
   font-family:'Noto Sans TC';
 }
 
-.couponLabel {
+.挑戰賽標籤 {
   font-weight: bold;
   float: left; width: 100px; padding-top: 15px;
   margin-left: 20px;
@@ -115,7 +115,7 @@ h2 {
   font-family:'Noto Sans TC';
 }
 
-.couponInputDetail{
+.挑戰賽細節輸入{
   height: 20px;
   width: 400px;
   font-size: 16px;
@@ -123,7 +123,7 @@ h2 {
   font-family:'Noto Sans TC';
 }
 
-.challengeLabelDetail {
+.挑戰賽細節標籤 {
   font-weight: bold;
   height: 20px;
   float: left; width: 80px; padding-top: 5px;
