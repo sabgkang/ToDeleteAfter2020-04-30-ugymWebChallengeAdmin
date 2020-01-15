@@ -305,26 +305,26 @@ function initMainPage() {
 //        //className: "centerCell"
 //              },
       {
-        //title: "使用"
+        //title: "參加"
         className: "centerCell"
               },
       {
-        //title: "確認"
+        //title: "繳費"
         className: "centerCell"
               },
       {
         //title: "操作",
         className: "centerCell",
         data: null,
-        defaultContent: "<button class = 'cancelUsingCoupon to-edit' style='width:80px'>取消使用</button> " 
-                      + "<button class = 'confirmUsingCoupon to-edit' style='width:90px'>確認使用</button> "      
+        defaultContent: "<button class = '取消參加挑戰賽 to-edit' style='width:80px'>取消參加</button> " 
+                      + "<button class = '確認繳費 to-edit' style='width:90px'>確認繳費</button> "      
        
               }
             ]
   });
   
-  $('#挑戰賽會員表格 tbody').on('click', '.cancelUsingCoupon', function () {
-    console.log("cancelUsingCoupon is clicked");
+  $('#挑戰賽會員表格 tbody').on('click', '.取消參加挑戰賽', function () {
+    console.log("取消參加挑戰賽 is clicked");
     
     var securityNum = Math.floor(Math.random()*8999+1000); 
     var securityStr = "確定取消挑戰賽使用，請輸入確認碼: " + String(securityNum);
@@ -398,11 +398,11 @@ function initMainPage() {
     
   });
 
-  $('#挑戰賽會員表格 tbody').on('click', '.confirmUsingCoupon', function () {
-    console.log("confirmUsingCoupon is clicked");
+  $('#挑戰賽會員表格 tbody').on('click', '.確認繳費', function () {
+    console.log("確認繳費 is clicked");
     
     var securityNum = Math.floor(Math.random()*8999+1000); 
-    var securityStr = "確定使用挑戰賽，請輸入確認碼: " + String(securityNum);
+    var securityStr = "確定參加挑戰賽，請輸入確認碼: " + String(securityNum);
     //console.log(prompt(securityStr));
     var confirmIt = prompt(securityStr) == securityNum;
     console.log("確認碼:", confirmIt);
@@ -439,14 +439,14 @@ function initMainPage() {
     }   
     
     //console.log(挑戰賽會員[thisIndex][thisI][2]);
-    挑戰賽會員[thisIndex][thisI][2] = "已確認";
+    挑戰賽會員[thisIndex][thisI][2] = "已繳費";
 
     // Update 挑戰賽會員對應 及其 Table
     for (var i=0; i< 挑戰賽會員對應.length; i++){
       //console.log(挑戰賽會員對應[i][0], data[0]);
       if (挑戰賽會員對應[i][0] == data[0]) {
         //console.log("match");
-        挑戰賽會員對應[i][2] = "已確認";
+        挑戰賽會員對應[i][2] = "已繳費";
       };
     };
     

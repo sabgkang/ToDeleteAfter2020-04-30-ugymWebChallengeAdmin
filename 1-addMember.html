@@ -77,19 +77,19 @@
   </div>
   <!--  ==================== 新增客戶 (HTML)=============================-->
 
-  <!--  ==================== 客戶已使用挑戰賽 (HTML)========================-->
+  <!--  ==================== 客戶已參加挑戰賽 (HTML)========================-->
   <div id="myCouponDiv">
-    <h1 id="客戶已使用挑戰賽">已使用挑戰賽</h1>
+    <h1 id="客戶已參加挑戰賽">已參加挑戰賽</h1>
     <hr>
     <div id="myCoupons">
-      <button class="btn-blue" id="useCouponBtn" onclick="closeMyCoupons()">返回</button>
+      <button class="btn-blue" id="參加挑戰按鈕" onclick="closeMyCoupons()">返回</button>
 
-      <table id="usedCouponsTable" class="display" style="font-family: 'Noto Sans TC';width: 100%">
+      <table id="已參加挑戰賽表格" class="display" style="font-family: 'Noto Sans TC';width: 100%">
         <thead>
           <tr id="table-header">
             <th style="width: 120px">挑戰賽編號</th>
             <th>挑戰賽內容</th>
-            <th style="width: 120px">使用期限</th>
+            <th style="width: 200px">挑戰期間</th>
             <th style="width: 50px">操作</th>
           </tr>
         </thead>
@@ -102,7 +102,7 @@
             <th style="width: 120px">歷史挑戰賽</th>
             <th>挑戰賽名稱</th>
 
-            <th style="width: 120px">使用期限</th>
+            <th style="width: 200px">挑戰期間</th>
 
             <th style="width: 50px">操作</th>
           </tr>
@@ -111,22 +111,22 @@
 
     </div>
   </div>
-  <!--  ==================== 客戶已使用挑戰賽 (HTML)========================-->
+  <!--  ==================== 客戶已參加挑戰賽 (HTML)========================-->
 
 
-  <!--  ==================== 可使用挑戰賽 (HTML)=============================-->
-  <div id="couponDiv">
-    <h1 id="可使用挑戰賽">可用挑戰賽編號</h1>
+  <!--  ==================== 可參加挑戰賽 (HTML)=============================-->
+  <div id="可參加挑戰賽畫面">
+    <h1 id="可參加挑戰賽">可參加挑戰賽編號</h1>
     <hr>
     <div id="coupons">
       <button class="btn-blue" id="returnBtn" onclick="returnFromCoupons()">返回</button>
 
-      <table id="notUsedCouponTable" class="display" style="font-family: 'Noto Sans TC';width: 100%">
+      <table id="可參加挑戰賽表格" class="display" style="font-family: 'Noto Sans TC';width: 100%">
         <thead>
           <tr id="table-header">
-            <th style="width: 120px">可用挑戰賽</th>
+            <th style="width: 120px">可參加挑戰賽</th>
             <th>挑戰賽內容</th>
-            <th style="width: 120px">使用期限</th>
+            <th style="width: 200px">挑戰期間</th>
 
             <th style="width: 50px">操作</th>
           </tr>
@@ -134,7 +134,7 @@
       </table>
     </div>
   </div>
-  <!--  ==================== 可使用挑戰賽 (HTML)=============================-->
+  <!--  ==================== 可參加挑戰賽 (HTML)=============================-->
 
 
   <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
@@ -176,7 +176,7 @@
     var myCouponsHistory = [];
     var 挑戰賽資料 = [];
     var 挑戰賽歷史資料 = [];
-    var notInCoupons=[];
+    var 未參加挑戰賽=[];
     var username;
     
     var userForAddingCoupon;
@@ -210,7 +210,7 @@
       var result = snapshot.val();
       挑戰賽資料 = JSON.parse(result.現在挑戰賽);
       挑戰賽歷史資料 = JSON.parse(result.過去挑戰賽);
-      buildCouponsTable();
+      建立可參加挑戰賽表格();
       if (readTimes == toRead) {
         $.loading.end();
       }
@@ -249,11 +249,11 @@
       }
     });
     
-    buildUsedCouponsTable();
-    //buildCouponsTable();
+    建立已參加挑戰賽表格();
+    //建立可參加挑戰賽表格();
     $("#addMemberInfo").hide();
     $("#myCouponDiv").hide();
-    $("#couponDiv").hide();    
+    $("#可參加挑戰賽畫面").hide();    
 
     //======== Functions ===================//
 
@@ -292,8 +292,8 @@
           {
             //title: "操作",
             data: null,
-            defaultContent: "<button class = 'checkUsedCoupons to-edit' style='width: 100px'>已使用挑戰賽</button> " +
-              "<button class = 'checkNewCoupons to-edit' style='width: 100px'>使用挑戰賽</button> " +
+            defaultContent: "<button class = 'checkUsedCoupons to-edit' style='width: 100px'>已參加挑戰賽</button> " +
+              "<button class = 'checkNewCoupons to-edit' style='width: 100px'>參加挑戰賽</button> " +
               "<button class = 'memberDeleteBtn to-delete'>刪除</button>"
           }
         ]
@@ -317,7 +317,7 @@
         // 取消課程用
         userForCancelCourse = data[0];
 
-        $("#客戶已使用挑戰賽").text(data[0] + " - 已使用挑戰賽");
+        $("#客戶已參加挑戰賽").text(data[0] + " - 已參加挑戰賽");
 
         var myCouponsNumbers = [];
         挑戰賽會員.forEach(function(item, index, array) {
@@ -381,7 +381,7 @@
         });
 
 
-        var table = $('#usedCouponsTable').DataTable();
+        var table = $('#已參加挑戰賽表格').DataTable();
         table.clear();
         table.rows.add(myCouponsData);
         table.draw();
@@ -418,26 +418,26 @@
 
         //console.log("aaa", myCouponsNumbers);
 
-        notInCoupons = [];
+        未參加挑戰賽 = [];
         挑戰賽資料.forEach(function(coupon, index, array) {
           myCouponsNumbers.forEach(function(notAttended, index, array) {
             if (notAttended == coupon[0]) {
               //console.log("not match", attended);
-              notInCoupons.push(coupon);
+              未參加挑戰賽.push(coupon);
             }
           });
         });
                 
-        var table = $('#notUsedCouponTable').DataTable();
+        var table = $('#可參加挑戰賽表格').DataTable();
         table.clear();
-        table.rows.add(notInCoupons);
+        table.rows.add(未參加挑戰賽);
         table.draw();
         
-        $("#可使用挑戰賽").text(userName + " - 可使用挑戰賽");
+        $("#可參加挑戰賽").text(userName + " - 可參加挑戰賽");
        // console.log(userName);
 
         $("#memberDiv").hide();
-        $("#couponDiv").show();
+        $("#可參加挑戰賽畫面").show();
 
       });
 
@@ -489,14 +489,14 @@
 
     }
 
-    function buildUsedCouponsTable() {
-      var usedCouponsTable = $('#usedCouponsTable').DataTable({
+    function 建立已參加挑戰賽表格() {
+      var 已參加挑戰賽表格 = $('#已參加挑戰賽表格').DataTable({
         data: myCouponsData,
         order: false,
         pageLength: 10,
         lengthChange: false,
         deferRender: true,
-        columns: [{ //title: 可用挑戰賽編號
+        columns: [{ //title: 可參加挑戰賽編號
             className: "centerCell"
           },
           {
@@ -509,17 +509,17 @@
           {
             //title: "操作",
             data: null,
-            defaultContent: "<button class = 'cancellUsageBtn to-edit' style='width: 100px'>取消使用</button> " 
+            defaultContent: "<button class = '取消參加 to-edit' style='width: 100px'>取消參加</button> " 
           }
         ]
       });
       
-      // ============ Function for cancellUsageBtn ================================================== 
-//      $('#usedCouponsTable tbody').on('click', '.cancellUsageBtn', function() {
-//        console.log("cancellUsageBtn is clicked");
+      // ============ Function for 取消參加 ================================================== 
+//      $('#已參加挑戰賽表格 tbody').on('click', '.取消參加', function() {
+//        console.log("取消參加 is clicked");
 //                
-//        var usedCouponsTable = $('#usedCouponsTable').DataTable();
-//        var data = usedCouponsTable.row($(this).parents('tr')).data();
+//        var 已參加挑戰賽表格 = $('#已參加挑戰賽表格').DataTable();
+//        var data = 已參加挑戰賽表格.row($(this).parents('tr')).data();
 //        var 新增挑戰賽內容 = data[0];
 //
 //        if (data[5]=="已繳費") {
@@ -537,7 +537,7 @@
 //        
 //        //更新表格
 //        data[5] = "已繳費";       
-//        var memberTable = $('#usedCouponsTable').DataTable();
+//        var memberTable = $('#已參加挑戰賽表格').DataTable();
 //        memberTable.clear().draw();
 //        memberTable.rows.add(myCouponsData);
 //        memberTable.draw();        
@@ -568,12 +568,12 @@
 //          });          
 //      });   
       
-      // ============ Function for cancellUsageBtn ================================================== 
-      $('#usedCouponsTable tbody').on('click', '.cancellUsageBtn', function() {
-        console.log("cancellUsageBtn is clicked");
+      // ============ Function for 取消參加 ================================================== 
+      $('#已參加挑戰賽表格 tbody').on('click', '.取消參加', function() {
+        console.log("取消參加 is clicked");
         
-        var usedCouponsTable = $('#usedCouponsTable').DataTable();
-        var data = usedCouponsTable.row($(this).parents('tr')).data();
+        var 已參加挑戰賽表格 = $('#已參加挑戰賽表格').DataTable();
+        var data = 已參加挑戰賽表格.row($(this).parents('tr')).data();
         var 新增挑戰賽內容 = data[0];
         var couponIdx = -1;
         var alreadyInUse = false;
@@ -604,9 +604,9 @@
 
         myCouponsData.splice(thisI,1);
         // redraw table
-        usedCouponsTable.clear();
-        usedCouponsTable.rows.add(myCouponsData);
-        usedCouponsTable.draw();
+        已參加挑戰賽表格.clear();
+        已參加挑戰賽表格.rows.add(myCouponsData);
+        已參加挑戰賽表格.draw();
                    
         if(alreadyInUse) {
           console.log("aaa");
@@ -626,9 +626,9 @@
 
       });      
 
-      $("#usedCouponsTable_filter").css("font-family", "Noto Sans TC");
-      $("#usedCouponsTable_info").css("font-family", "Noto Sans TC");
-      $("#usedCouponsTable_paginate").css("font-family", "Noto Sans TC");
+      $("#已參加挑戰賽表格_filter").css("font-family", "Noto Sans TC");
+      $("#已參加挑戰賽表格_info").css("font-family", "Noto Sans TC");
+      $("#已參加挑戰賽表格_paginate").css("font-family", "Noto Sans TC");
 
       var myCouponsHistory = $('#myCouponsHistory').DataTable({
         data: myCouponsHistory,
@@ -663,15 +663,15 @@
       $("#myCouponsHistory_paginate").css("font-family", "Noto Sans TC");
     }
 
-    function buildCouponsTable() {       
-      $("#couponDiv").show();
-      var couponsTable = $('#notUsedCouponTable').DataTable({
-        data: notInCoupons, //挑戰賽資料,
+    function 建立可參加挑戰賽表格() {       
+      $("#可參加挑戰賽畫面").show();
+      var 可參加挑戰賽表格 = $('#可參加挑戰賽表格').DataTable({
+        data: 未參加挑戰賽, //挑戰賽資料,
         //order: false,
         pageLength: 10,
         lengthChange: false,
         deferRender: true,
-        columns: [{ //title: 可用挑戰賽編號
+        columns: [{ //title: 可參加挑戰賽編號
             className: "centerCell"
           },
           {
@@ -686,55 +686,46 @@
           {
             //title: "操作",
             data: null,
-            defaultContent: "<button id='joinBtn' class = 'useCouponBtn to-edit' style='width: 100px'>使用</button> "
+            defaultContent: "<button id='joinBtn' class = '參加挑戰按鈕 to-edit' style='width: 100px'>參加挑戰</button> "
           }
         ]
       });
       
-      $("#couponDiv").hide();
+      $("#可參加挑戰賽畫面").hide();
       
       //TODO
-      // ============ Function for useCouponBtn ================================================== 
-      $('#notUsedCouponTable tbody').on('click', '.useCouponBtn', function() {
-        console.log("useCouponBtn is clicked");
+      // ============ Function for 參加挑戰按鈕 ================================================== 
+      $('#可參加挑戰賽表格 tbody').on('click', '.參加挑戰按鈕', function() {
+        console.log("參加挑戰按鈕 is clicked");
         
-        var couponsTable = $('#notUsedCouponTable').DataTable();
-        var data = couponsTable.row($(this).parents('tr')).data();
+        var 可參加挑戰賽表格 = $('#可參加挑戰賽表格').DataTable();
+        var data = 可參加挑戰賽表格.row($(this).parents('tr')).data();
         var 新增挑戰賽內容 = data[0];
         var couponIdx = -1;
         var alreadyInUse = false;
-        // 檢查是否已報過名
+        // 檢查是否已參加過
         挑戰賽會員.forEach(function(coupon, index, array){
           if (coupon[0]==新增挑戰賽內容) {
             //console.log(新增挑戰賽內容);
             couponIdx = index;
-            coupon.push([userForAddingCoupon, "已使用", "未確認"]);
-            
-//            for (var i=0; i< coupon.length; i++) {
-//              //console.log(coupon[i][0]);
-//              if (coupon[i][0]==userForAddingCoupon) {
-//                //alert("您已經報過此課程了");
-//                //alreadyInUse = true;
-//                return(0); //只跳出 forEach 迴圈
-//              }
-//            };
+            coupon.push([userForAddingCoupon, "已參加", "未繳費"]);
           }
         }) 
         
-        //刪除 notInCoupons 的那一列，重劃表格
+        //刪除 未參加挑戰賽 的那一列，重劃表格
         var thisI=0;
-        for (var i=0; i<notInCoupons.length; i++) {
-          if (notInCoupons[i][0]==新增挑戰賽內容) {
+        for (var i=0; i<未參加挑戰賽.length; i++) {
+          if (未參加挑戰賽[i][0]==新增挑戰賽內容) {
             thisI = i; 
             break;
           }
         }
 
-        notInCoupons.splice(thisI,1);        
+        未參加挑戰賽.splice(thisI,1);        
         // redraw table
-        couponsTable.clear();
-        couponsTable.rows.add(notInCoupons);
-        couponsTable.draw();        
+        可參加挑戰賽表格.clear();
+        可參加挑戰賽表格.rows.add(未參加挑戰賽);
+        可參加挑戰賽表格.draw();        
         
         
 
@@ -748,16 +739,16 @@
               }
                 //console.log('Write to database successful');
                 //console.log("aaa", $("#joinBtn").text());
-                alert("使用成功!");
+                alert("參加報名成功!");
                 //closeMyCoupons();
         });          
      
 
       });
       
-      $("#notUsedCouponTable_filter").css("font-family", "Noto Sans TC");
-      $("#notUsedCouponTable_info").css("font-family", "Noto Sans TC");
-      $("#notUsedCouponTable_paginate").css("font-family", "Noto Sans TC");
+      $("#可參加挑戰賽表格_filter").css("font-family", "Noto Sans TC");
+      $("#可參加挑戰賽表格_info").css("font-family", "Noto Sans TC");
+      $("#可參加挑戰賽表格_paginate").css("font-family", "Noto Sans TC");
     }
 
     function signIn() {
@@ -872,7 +863,7 @@
     
     function returnFromCoupons() {
       console.log("returnFromCoupons");
-      $("#couponDiv").hide();   
+      $("#可參加挑戰賽畫面").hide();   
       $("#memberDiv").show();
            
     }
