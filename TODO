@@ -1,0 +1,9 @@
+1. 報名(main-pahge.js line#711) 及 繳費(main-pahge.js line#443/450) 須加上日期
+   aaa = new Date();
+   >> Wed Jan 15 2020 23:20:14 GMT+0800 (台北標準時間)
+   aaa = aaa.toLocaleDateString();
+   >> "2020/1/15"
+   aaa.replace(/\//g, "-");
+ 
+
+2. 顯示 電話號碼 及用 電話號碼 做身分識別

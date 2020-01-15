@@ -162,6 +162,7 @@ function initMainPage() {
           var dataToAdd = tmp1.slice(0, 1);
 
           dataToAdd.push(item1[1], item1[2]);
+          console.log(item1[1], item1[1].length)
 
           挑戰賽會員對應.push(dataToAdd);
         });
